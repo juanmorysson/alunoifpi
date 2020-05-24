@@ -1,0 +1,37 @@
+
+
+{% extends 'aluno/base.html' %}
+
+{% block dinamico %}
+
+		<h2 class="container titulo-depoimentos">
+			Notícias
+		</h2>
+		{% for post in posts %}
+			<div class="media">
+			  <div class="col-sm-2">
+			    <a href="{% url 'post_detail' pk=post.pk %}">
+			    	{% if post.photo %}
+			      		<img class="media-object img-responsive" src="{{ post.photo.url }}" alt="...">
+			      	{% else %}
+			      		<p>sem imagem</p>
+			      	{% endif %}
+			    </a>
+			  </div>
+			  <div class="col-sm-10">
+			    <h4 class="media-heading">
+			    	<a href="{% url 'post_detail' pk=post.pk %}">
+			    		{{ post.title }}
+			    	</a>
+			    </h4>
+			    <p id="data">publicado em: {{ post.published_date }}</p>
+			    {{ post.text|linebreaksbr|slice:"0:300" }}
+			  </div>
+			</div>
+
+
+		{% endfor %}
+
+{% endblock %}
+
+

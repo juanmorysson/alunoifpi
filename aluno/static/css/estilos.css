@@ -36,10 +36,10 @@ header h1 {
 
 .titulo-depoimentos {
 	background-color: #0275D8;
-	padding-top: 25px;
-	padding-bottom: 25px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 	color: #FFF;
-	margin-bottom: 0;
+	margin: 0;
 	font-size: 24px;
 }
 
@@ -68,6 +68,17 @@ footer address:last-child {
 	margin-bottom: 0;
 }
 
+#mini{
+		margin-right: -15px;
+  		margin-left: -15px;
+
+	}
+
+#data{
+	color: #888;
+	font-size: 12px;
+}
+
 @media(min-width: 768px) {
 	#paineis-sobre {
 		margin-top: 0;	
@@ -92,6 +103,7 @@ footer address:last-child {
 	footer {
 		padding: 1%;
 	}
+
 }
 
 

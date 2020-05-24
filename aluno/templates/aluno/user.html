@@ -1,0 +1,21 @@
+{% extends 'aluno/base.html' %}
+
+{% block dinamico %}
+	<div class="post">
+		{{ user.get_username }}
+		<br>
+		<ul>
+			<li>
+				<a href="/accounts/password_change">Mudar Senha</a>
+			</li>
+			<li>
+				<a href="/accounts/password_reset/">Recuperar Senha</a>
+			</li>
+		</ul>
+
+
+	</div>
+{% endblock %}
+
+
+

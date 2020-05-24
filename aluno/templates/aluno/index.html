@@ -1,70 +1,28 @@
-{% load staticfiles %}
-<!doctype html>
-<html>
-<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.min.css' %}">
-		<link rel="stylesheet" href="{% static '/css/estilos.css' %}">
-</head>
-<body>
-		
-	<header>
-		<nav class="navbar navbar-default">
-			<div class="container">
+{% extends 'aluno/base.html' %}
 
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse-navbar" aria-expanded="false">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-
-					<a class="navbar-brand" href="#">Aluno IFPI</a>
-				</div>
-
-				<div class="collapse navbar-collapse" id="collapse-navbar">
-					<ul class="nav navbar-nav">
-						<li><a href="#sobre-nos">Refeitorio</a></li>
-						<li><a href="#nossos-projetos">Informativos</a></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-		
-		<div class="container" style="height: 90%;">
-			<div id="carousel-example-generic" class="carousel slide" style="height: 100%;" data-ride="carousel">
+{% block dinamico %}
+		<div class="container col-sm-8" >
+			<div id="carousel-example-generic" class="carousel slide"  data-ride="carousel">
 				<!-- Indicators -->
 				<ol class="carousel-indicators">
 					<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
 					<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-					<li data-target="#carousel-example-generic" data-slide-to="2"></li>
 				</ol>
 
 				<!-- Wrapper for slides -->
-				<div class="carousel-inner" role="listbox" style="height:100%;">
-					<figure class="item active" style="height:100% !important;">
-						<img src="{% static '/img/depoimentos/depoimento1.png' %}" alt="Depoimento 1">
-						<figcaption class="carousel-caption">
-							<h3>Yuri Padilha</h3>
-							<p>Gostei muito e achei rápido o serviço.</p>
-						</figcaption>
-					</figure>
-					<figure class="item" style="height:100% !important;">
-						<img src="{% static '/img/depoimentos/depoimento2.png' %}" alt="Depoimento 2">
-						<figcaption class="carousel-caption">
-							<h3>Fernando Stafaneni</h3>
-							<p>Excelente trabalho.</p>
-						</figcaption>
-					</figure>
-					<figure class="item" style="height:100% !important;">
-						<img src="{% static '/img/depoimentos/depoimento3.png' %}" alt="Depoimento 3">
-						<figcaption class="carousel-caption">
-							<h3>Caio Sauzas</h3>
-							<p>Gostei, competência em primeiro lugar.</p>
-						</figcaption>
-					</figure>
+				<div class="carousel-inner" role="listbox">
+{% for post_d in posts_destaque %}
+					<div class="item {% if forloop.last %} active {% endif %} " >
+						<a href="{% url 'post_detail' pk=post_d.pk %}">
+							<img src="{{ post_d.photo.url }}" class="img-responsive" alt="">
+						</a>
+						<div class="carousel-caption">
+							<h3>
+									{{ post_d.title }}
+							</h3>
+						</div>
+					</div>
+{% endfor %}
 				</div>
 
 				<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
@@ -77,19 +35,33 @@
 				</a>
 			</div>
 		</div>
-	</header>
+
+	<div class="row">
+		<section id="sobre-nos" class="container">
+
+			<div class="panel-group col-sm-4" id="paineis-sobre">
+		{% for post in posts %}
+				<div class="panel panel-primary">
+				  <div class="panel-heading" data-toggle="collapse" data-target="#noticia{{ post.id }}" data-parent="#paineis-sobre">
+				    <h3 class="panel-title">
+				    	<a href="{% url 'post_detail' pk=post.pk %}">
+				    		{{ post.title }}
+				    	</a>
+				    </h3>
+				  </div>
+					<div class="collapse {% if forloop.first %} in {% endif %}" id="#noticia{{ post.id }}">
+					  <div class="panel-body">
+					  	<p>{{ post.text|linebreaksbr|slice:"0:300" }}</p>
+					  </div>
+					</div>
+				</div>
+		{% endfor %}
+			</div>
+		</section>
+	</div>
+	<button onclick="window.location.href='/posts'" class="btn btn-link">
+		+ notícias
+	</button>
 
 	<div class="container">
-	</div>
-
-	<footer>
-		<address>
-			IFPI - CACOR
-		</address>
-	</footer>
-
-	<script src="{% static '/js/jquery.js' %}"></script>
-	<script src="{% static '/bootstrap/js/bootstrap.min.js' %}"></script>
-	<script src="{% static '/js/navbar-animation-fix.js' %}"></script>
-</body>
-</html>
+{% endblock %}

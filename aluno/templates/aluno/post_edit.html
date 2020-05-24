@@ -1,0 +1,14 @@
+
+
+{% extends 'aluno/base.html' %}
+
+{% block dinamico %}
+	<h2 class="container titulo-depoimentos">Editor de Notícia</h2>
+	<section id="formulario" class="col-sm-8">
+	
+	<form method="POST" class="form-horizontal" enctype="multipart/form-data">{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit" class="btn btn-success">Salvar</button>
+	</form>
+{% endblock %}
+

@@ -1,0 +1,38 @@
+
+
+{% extends 'aluno/base.html' %}
+
+{% block dinamico %}
+	<div class="post">
+		<h2 class="container titulo-depoimentos"> {{ post.title }}</h2>
+
+		{% if post.published_date %}
+			<div class="date col-sm-12" id="data">
+				Publicado: {{ post.published_date }}
+			</div>
+		{% endif %}
+		{% if perms.aluno.change_noticia %}
+		<div class="col-sm-3">
+			<a href="{% url 'post_edit' pk=post.pk %}"> 
+				Editar Post 
+			</a>
+		</div>
+		{% endif %}
+		{% if perms.aluno.delete_noticia %}
+		<div class="col-sm-3">
+			<a href="{% url 'post_remove' pk=post.pk %}"> 
+				Deletar Post 
+			</a>
+		</div>
+		{% endif %}
+		<p class="col-sm-12">
+		{% if post.photo %}
+			<img src="{{ post.photo.url }}" class="col-sm-6 img-responsive" alt="..."/>
+		{% endif %}
+		{{ post.text|linebreaksbr }}
+		</p>
+	</div>
+{% endblock %}
+
+
+
