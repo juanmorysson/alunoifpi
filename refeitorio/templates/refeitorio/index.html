@@ -1,0 +1,16 @@
+{% extends 'refeitorio/base.html' %}
+
+{% block dinamico %}
+	<div class="container col-sm-8" >
+		{% if perms.refeitorio.add_reserva %}
+			<div class="col-sm-12">
+				<a href="{% url 'reserva_new'%}"> 
+					<button type="button" class="btn btn-success">Fazer Reserva</button>
+				</a>
+				</br></br>
+			</div>
+		{% endif %}			
+	</div>
+
+	<div class="container">
+{% endblock %}

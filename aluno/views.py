@@ -25,14 +25,14 @@ def post_detail(request, pk):
     return render(request, 'aluno/post_detail.html', {'post': post})
     
 def post_new(request):
+    if not request.user.has_perm('aluno.add_noticia'):
+        raise PermissionDenied
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
             post.published_date = timezone.now()
-            if not request.user.has_perm('aluno.add_noticia'):
-                raise PermissionDenied
             post.save()
             return redirect('post_detail', pk=post.pk)
     else:
@@ -40,6 +40,8 @@ def post_new(request):
     return render(request, 'aluno/post_edit.html', {'form': form})
     
 def post_edit(request, pk):
+    if not request.user.has_perm('aluno.change_noticia'):
+        raise PermissionDenied
     post = get_object_or_404(Noticia, pk=pk)
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES, instance=post)
@@ -47,8 +49,6 @@ def post_edit(request, pk):
             post = form.save(commit=False)
             post.author = request.user
             post.published_date = timezone.now()
-            if not request.user.has_perm('aluno.change_noticia'):
-                raise PermissionDenied
             post.save()
             return redirect('post_detail', pk=post.pk)
     else:
@@ -56,9 +56,9 @@ def post_edit(request, pk):
     return render(request, 'aluno/post_edit.html', {'form': form})
     
 def post_remove(request, pk):
-    post = get_object_or_404(Noticia, pk=pk)
     if not request.user.has_perm('aluno.delete_noticia'):
         raise PermissionDenied
+    post = get_object_or_404(Noticia, pk=pk)
     post.delete()
     return redirect('post_list')    
     

@@ -1,0 +1,40 @@
+
+
+{% extends 'refeitorio/base.html' %}
+
+{% block dinamico %}
+
+		<h2 class="container titulo-depoimentos">
+			Turnos
+		</h2>
+
+		{% if perms.refeitorio.add_turno %}
+		<div class="col-sm-3">
+			<a href="{% url 'turno_new' %}"> 
+				Novo Turno 
+			</a>
+		</div>
+		{% endif %}
+		{% for turno in turnos %}
+			<div class="media">
+			  <table class="table table-bordered">
+			  	<tr>
+			  		<th>
+			  			Descrição
+			  		</th>
+			  	</tr>
+			  	<tr>
+			  		<td>
+					    <a href="{% url 'turno_detail' pk=turno.pk %}">
+					    	{{ turno.descricao }}
+					    </a>
+			    	</td>
+			  </table>
+			</div>
+
+
+		{% endfor %}
+
+{% endblock %}
+
+

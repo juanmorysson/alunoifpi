@@ -37,12 +37,38 @@
 
 				<div class="collapse navbar-collapse" id="collapse-navbar">
 					<ul class="nav navbar-nav">
-						<li><a href="/refeitorio">Refeitorio</a></li>
+						<li><a href="/refeitorio">Refeitório</a></li>
+						<li>
+							<a id="admLabel" data-target="#" href="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+								Cadastros
+							    <span class="caret"></span>
+							</a>
+
+							<ul class="dropdown-menu" aria-labelledby="admLabel">
+								<li>
+							    	<a href="/refeitorio/refeicaos">Refeições</a>
+							    </li>
+							    <li>
+							    	<a href="/refeitorio/tipoRefeicaos">Tipo de Refeições</a>
+							    </li>
+							    <li>
+							    	<a href="/refeitorio/alunos">Alunos</a>
+							    </li>
+							    <li>
+							    	<a href="/refeitorio/servidors">Servidores</a>
+							    </li>
+							    <li>
+							    	<a href="/refeitorio/cursos">Cursos</a>
+							    </li>
+								<li>
+									<a href="/refeitorio/turnos">Turnos</a>
+								</li>   
+		     					<li>
+		     						<a href="/refeitorio/turmas">Turmas</a>
+		     					</li>   
+							</ul>
+						</li>
 						<li><a href="/">Informativos</a></li>
-					{% if perms.aluno.add_noticia %}
-						<li><a href="/post/new">Nova Notícia</a></li>
-					{% endif %} 
-						<li><a href="/posts">Listar Notícias</a></li>
 					{% if user.is_authenticated %}
 						<li>
 						<a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   

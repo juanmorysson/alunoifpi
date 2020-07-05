@@ -1,0 +1,30 @@
+
+
+{% extends 'refeitorio/base.html' %}
+
+{% block dinamico %}
+	<div class="post">
+		<h2 class="container titulo-depoimentos"> Turno: </h2>
+
+		{% if perms.refeitorio.change_turno %}
+		<div class="col-sm-3">
+			<a href="{% url 'turno_edit' pk=turno.pk %}"> 
+				Editar Turno 
+			</a>
+		</div>
+		{% endif %}
+		{% if perms.refeitorio.delete_turno %}
+		<div class="col-sm-3">
+			<a href="{% url 'turno_remove' pk=turno.pk %}"> 
+				Deletar Turno 
+			</a>
+		</div>
+		{% endif %}
+		<p class="col-sm-12">
+			Descrição: {{ turno.descricao }}
+		</p>
+	</div>
+{% endblock %}
+
+
+
